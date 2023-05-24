@@ -1,42 +1,53 @@
 import * as types from './types'
-import { store } from '../store'
+// import { store } from '../store'
 
 export const getData = () => async dispatch => {
-    let modals = []
+    let posts = [],
+        comments = [],
+        users = []
 
-    modals = await fetch('modals.json' // from /public folder
-        , {
-            headers: {
-                'Content-Type': 'application/json'
+    if (localStorage.getItem('instagram')) {
+        const data = await JSON.parse(localStorage.getItem('instagram'))
+        await ({ posts, comments, users } = data)
+
+    } else {
+        posts = await fetch('posts.json' // from /public folder
+            , {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        }
-    )
-        .then((response) => response.json())
+        )
+            .then((response) => response.json())
+
+        comments = await fetch('comments.json' // from /public folder
+            , {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+            .then((response) => response.json())
+
+        users = await fetch('users.json' // from /public folder
+            , {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+            .then((response) => response.json())
+
+        localStorage.setItem('instagram', JSON.stringify({ posts, comments, users }))
+    }
 
     dispatch({
         type: types.GET_DATA,
         payload: {
-            modals: modals,
+            posts: posts,
+            comments: comments,
+            users: users
         }
     })
 }
 
-export const handleModal = (modal, action) => {
-    console.log('action handleModal');
-    const modals = store.getState().product.modals
-    const thisModal = modals.filter(item => item.id === modal)
-    return {
-        type: types.HANDLE_MODAL,
-        payload: {
-            ...thisModal[0],
-            action: action
-        }
-    }
-}
-
-export const toggleModal = () => {
-    console.log('action TOGGLE_MODAL');
-    return {
-        type: types.TOGGLE_MODAL,
-    }
-}
