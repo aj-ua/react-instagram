@@ -15,3 +15,33 @@
 .container {
   max-width: 1200px;
 }
+
+// Posts
+.posts-loader {
+  text-align: center;
+
+  i:before {
+    animation: rotation 2s infinite linear;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Post
+.post-actions {
+  a {
+    transition: all 0.3s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
