@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { handleLikes } from '../actions'
+import { handleLikes, togglePostModal } from '../actions'
 
-const Post = ({ post, user, postComments, likes }) => {
+const Post = ({ post, user, postComments, likes, isModal = false, togglePostModal }) => {
 
-    const { id, userId, title, url } = post
+
+    const { id, title, url } = post
     const { username, photo } = user
 
     const [addedLikes, setAddedLikes] = useState(false)
@@ -52,20 +53,33 @@ const Post = ({ post, user, postComments, likes }) => {
             <img className="card-img" src={url} alt={title} />
             <div className="card-body">
 
-                <p className="d-flex gap-4 post-actions">
+                {!isModal && <p className="d-flex gap-4 post-actions">
                     <a href="/#" className='text-dark fs-4' onClick={updateLikes}>
-                        {addedLikes ? <i className="bi bi-heart-fill"></i> : <i className="bi bi-heart"></i>}
+                        {addedLikes ? <i className="bi bi-heart-fill text-danger"></i> : <i className="bi bi-heart"></i>}
                     </a>
-                    <a href="\#" className="text-dark fs-4"><i className="bi bi-chat-left"></i></a>
-                </p>
+                    <a href="\#" className="text-dark fs-4" onClick={() => togglePostModal(post)}><i className="bi bi-chat-left"></i></a>
+                </p>}
+
 
                 {postComments.length > 0 && (
                     <>
-                        <p><strong>{postComments[0].name.length > 15 ? postComments[0].name.substring(0, 15) + '...' : postComments[0].name}</strong> {postComments[0].body.length > 50 ? postComments[0].body.substring(0, 50) + '...' : postComments[0].body}</p>
-                        <p className='text-secondary post-show-comments mb-2'>View all {postComments.length} comments</p>
+                        {isModal ? (
+
+                            postComments.map((comment) => {
+                                return <p><strong>{comment.name.length > 15 ? comment.name.substring(0, 15) + '...' : comment.name}</strong> {comment.body.length > 50 ? comment.body.substring(0, 50) + '...' : comment.body}</p>
+                            })
+
+                        ) :
+                            <>
+                                <p><strong>{postComments[0].name.length > 15 ? postComments[0].name.substring(0, 15) + '...' : postComments[0].name}</strong> {postComments[0].body.length > 50 ? postComments[0].body.substring(0, 50) + '...' : postComments[0].body}</p>
+                                <p className='text-secondary post-show-comments mb-2' onClick={() => togglePostModal(post)}>View all {postComments.length} comments</p>
+                            </>
+                        }
                     </>
                 )}
-                <input type="text" className="form-control" placeholder="Add a comment..." />
+                <form>
+                    <input type="text" className="form-control" placeholder="Add a comment..." />
+                </form>
             </div>
         </article>
     )
@@ -75,4 +89,4 @@ const mapStateToProps = (state) => ({
     likes: state.data.likes,
 })
 
-export default connect(mapStateToProps, { handleLikes })(Post)
+export default connect(mapStateToProps, { handleLikes, togglePostModal })(Post)

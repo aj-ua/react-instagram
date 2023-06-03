@@ -62,3 +62,11 @@ export const handleLikes = (likes) => {
         payload: likes
     }
 }
+
+export const togglePostModal = (post) => {
+    console.log('action TOGGLE_POST_MODAL');
+    return {
+        type: types.TOGGLE_POST_MODAL,
+        payload: post
+    }
+}

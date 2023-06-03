@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Post from './Post'
+import ModalPost from './ModalPost'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { togglePostModal } from '../actions'
 import { showPostsLoader } from '../functions'
 
-const Posts = ({ posts, users, comments }) => {
-    showPostsLoader()
+const Posts = ({ posts, users, comments, isPostModalOpen, currentPost, togglePostModal }) => {
+
+    useEffect(() => {
+        showPostsLoader();
+    }, [])
+
     return (
         posts.length > 0 && (
             <>
@@ -21,6 +27,8 @@ const Posts = ({ posts, users, comments }) => {
                     ))}
                 </div>
                 {posts.length > 0 && <div className="posts-loader fs-3 mt-4"><i className="bi bi-arrow-clockwise"></i></div>}
+
+                <ModalPost />
             </>
         )
     )
@@ -34,6 +42,8 @@ const mapStateToProps = (state) => ({
     posts: state.data.posts,
     users: state.data.users,
     comments: state.data.comments,
+    isPostModalOpen: state.modal.isPostModalOpen,
+    currentPost: state.modal.currentPost,
 })
 
-export default connect(mapStateToProps, null)(Posts)
+export default connect(mapStateToProps, { togglePostModal })(Posts)

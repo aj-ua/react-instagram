@@ -16,6 +16,11 @@
   max-width: 1000px;
 }
 
+// Helper classes
+.cursor-pointer {
+  cursor: pointer;
+}
+
 // Posts
 .posts-loader {
   text-align: center;
@@ -36,12 +41,51 @@
 }
 
 // Post
+.post {
+  &-show-comments {
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: #000 !important;
+    }
+  }
+}
+
 .post-actions {
   a {
     transition: all 0.3s;
 
     &:hover {
       opacity: 0.5;
+    }
+  }
+}
+
+/**
+* Modal
+*/
+.modal {
+  &-overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(#000, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .card {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .card-header {
+      width: 100%;
+    }
+
+    .card-img,
+    .card-body {
+      width: 50%;
     }
   }
 }

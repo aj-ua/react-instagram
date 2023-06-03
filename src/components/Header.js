@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 const Header = (users) => {
     const currentUser = users.users[0]
-    console.log('currentUser', currentUser);
+
     return (
         <header className="navbar navbar-dark navbar-expand-md bg-dark text-white">
             <div className="container d-flex justify-content-between">
