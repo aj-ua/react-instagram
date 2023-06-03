@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { showPostsLoader } from '../functions'
 
-const Posts = ({ posts, users }) => {
+const Posts = ({ posts, users, comments }) => {
     showPostsLoader()
     return (
         posts.length > 0 && (
@@ -12,7 +12,11 @@ const Posts = ({ posts, users }) => {
                 <div className='row'>
                     {posts.map((post, index) => (
                         <div className={index > 2 ? 'single-post mb-4 d-none' : 'single-post mb-4'} key={post.id}>
-                            <Post post={post} user={users.filter(user => user.id === post.userId)[0]} />
+                            <Post
+                                post={post}
+                                user={users.filter(user => user.id === post.userId)[0]}
+                                postComments={comments.filter(comment => comment.postId === post.id)}
+                            />
                         </div>
                     ))}
                 </div>
@@ -29,6 +33,7 @@ Posts.propTypes = {
 const mapStateToProps = (state) => ({
     posts: state.data.posts,
     users: state.data.users,
+    comments: state.data.comments,
 })
 
 export default connect(mapStateToProps, null)(Posts)

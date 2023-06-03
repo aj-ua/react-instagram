@@ -14,7 +14,7 @@ export default function postsReducers(state = initialState, action) {
             return {
                 ...state,
                 posts: action.payload.posts,
-                comments: action.payload.cart,
+                comments: action.payload.comments,
                 users: action.payload.users,
                 likes: action.payload.likes,
             }

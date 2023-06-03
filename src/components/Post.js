@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { handleLikes } from '../actions'
 
-const Post = ({ post, user, likes }) => {
+const Post = ({ post, user, postComments, likes }) => {
+
     const { id, userId, title, url } = post
+    const { username, photo } = user
 
     const [addedLikes, setAddedLikes] = useState(false)
 
@@ -43,7 +45,11 @@ const Post = ({ post, user, likes }) => {
 
     return (
         <article className="card">
-            <img className="card-img-top" src={url} alt={title} />
+            <div className="card-header bg-white border-bottom-none d-flex align-items-center gap-2">
+                <img className='rounded-5' src={photo} alt={username} width='24' height='24   ' />
+                <strong className="">{username}</strong>
+            </div>
+            <img className="card-img" src={url} alt={title} />
             <div className="card-body">
 
                 <p className="d-flex gap-4 post-actions">
@@ -53,7 +59,13 @@ const Post = ({ post, user, likes }) => {
                     <a href="\#" className="text-dark fs-4"><i className="bi bi-chat-left"></i></a>
                 </p>
 
-                <h6 className="card-title">Author #{userId}: <span>{title}</span></h6>
+                {postComments.length > 0 && (
+                    <>
+                        <p><strong>{postComments[0].name.length > 15 ? postComments[0].name.substring(0, 15) + '...' : postComments[0].name}</strong> {postComments[0].body.length > 50 ? postComments[0].body.substring(0, 50) + '...' : postComments[0].body}</p>
+                        <p className='text-secondary post-show-comments mb-2'>View all {postComments.length} comments</p>
+                    </>
+                )}
+                <input type="text" className="form-control" placeholder="Add a comment..." />
             </div>
         </article>
     )
