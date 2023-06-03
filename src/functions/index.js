@@ -20,7 +20,9 @@ export function showPostsLoader() {
 
         }, { threshold: [0] });
 
-        observer.observe(postsLoader);
+        if (postsLoader) {
+            observer.observe(postsLoader);
+        }
     })
 
 }

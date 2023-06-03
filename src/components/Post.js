@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { handleLikes } from '../actions'
 
-const Post = props => {
-    const { id, userId, title, url, user, likes } = props.post;
+const Post = ({ post, user, likes }) => {
+    const { id, userId, title, url } = post
 
     const [addedLikes, setAddedLikes] = useState(false)
+
+    useEffect(() => {
+        if (likes && likes.includes(id)) {
+            setAddedLikes(true)
+        }
+    }, [likes, id])
+
 
     const updateLikes = (e) => {
         e.preventDefault()
@@ -29,7 +38,7 @@ const Post = props => {
 
         }
 
-        // handleLikes(likes)
+        handleLikes(likes)
     }
 
     return (
@@ -37,7 +46,6 @@ const Post = props => {
             <img className="card-img-top" src={url} alt={title} />
             <div className="card-body">
 
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <p className="d-flex gap-4 post-actions">
                     <a href="/#" className='text-dark fs-4' onClick={updateLikes}>
                         {addedLikes ? <i className="bi bi-heart-fill"></i> : <i className="bi bi-heart"></i>}
@@ -50,4 +58,9 @@ const Post = props => {
         </article>
     )
 }
-export default Post
+
+const mapStateToProps = (state) => ({
+    likes: state.data.likes,
+})
+
+export default connect(mapStateToProps, { handleLikes })(Post)

@@ -4,11 +4,12 @@ import * as types from './types'
 export const getData = () => async dispatch => {
     let posts = [],
         comments = [],
-        users = []
+        users = [],
+        likes = []
 
     if (localStorage.getItem('instagram')) {
         const data = await JSON.parse(localStorage.getItem('instagram'))
-        await ({ posts, comments, users } = data)
+        await ({ posts, comments, users, likes } = data)
 
     } else {
         posts = await fetch('posts.json' // from /public folder
@@ -38,7 +39,7 @@ export const getData = () => async dispatch => {
         )
             .then((response) => response.json())
 
-        localStorage.setItem('instagram', JSON.stringify({ posts, comments, users }))
+        localStorage.setItem('instagram', JSON.stringify({ posts, comments, users, likes }))
     }
 
     dispatch({
@@ -46,8 +47,18 @@ export const getData = () => async dispatch => {
         payload: {
             posts: posts,
             comments: comments,
-            users: users
+            users: users,
+            likes: likes
         }
     })
 }
 
+export const handleLikes = (likes) => {
+    const data = JSON.parse(localStorage.getItem('instagram'))
+    data.likes = likes
+    localStorage.setItem('instagram', JSON.stringify(data))
+    return {
+        type: types.HANDLE_LIKES,
+        payload: likes
+    }
+}

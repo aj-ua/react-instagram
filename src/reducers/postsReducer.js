@@ -1,9 +1,10 @@
-import { GET_DATA } from '../actions/types'
+import { GET_DATA, HANDLE_LIKES } from '../actions/types'
 
 const initialState = {
     posts: [],
     comments: [],
-    users: []
+    users: [],
+    likes: [],
 }
 
 export default function postsReducers(state = initialState, action) {
@@ -14,8 +15,17 @@ export default function postsReducers(state = initialState, action) {
                 ...state,
                 posts: action.payload.posts,
                 comments: action.payload.cart,
-                users: action.payload.users
+                users: action.payload.users,
+                likes: action.payload.likes,
             }
+
+        case HANDLE_LIKES:
+            console.log('reducer HANDLE_LIKES');
+            return {
+                ...state,
+                likes: action.payload
+            }
+
 
         default:
             return state
