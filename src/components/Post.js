@@ -47,7 +47,7 @@ const Post = ({ post, user, postComments, likes }) => {
         <article className="card">
             <div className="card-header bg-white border-bottom-none d-flex align-items-center gap-2">
                 <img className='rounded-5' src={photo} alt={username} width='24' height='24   ' />
-                <strong className="">{username}</strong>
+                <strong>{username}</strong>
             </div>
             <img className="card-img" src={url} alt={title} />
             <div className="card-body">
