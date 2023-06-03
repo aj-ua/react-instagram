@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import AddComment from './AddComment'
 import { handleLikes, togglePostModal } from '../actions'
 
 const Post = ({ post, user, postComments, likes, isModal = false, togglePostModal }) => {
@@ -66,7 +67,9 @@ const Post = ({ post, user, postComments, likes, isModal = false, togglePostModa
                         {isModal ? (
 
                             postComments.map((comment) => {
-                                return <p><strong>{comment.name.length > 15 ? comment.name.substring(0, 15) + '...' : comment.name}</strong> {comment.body.length > 50 ? comment.body.substring(0, 50) + '...' : comment.body}</p>
+                                return <div key={comment.id}>
+                                    <p><strong>{comment.name.length > 15 ? comment.name.substring(0, 15) + '...' : comment.name}</strong> {comment.body.length > 50 ? comment.body.substring(0, 50) + '...' : comment.body}</p>
+                                </div>
                             })
 
                         ) :
@@ -77,9 +80,7 @@ const Post = ({ post, user, postComments, likes, isModal = false, togglePostModa
                         }
                     </>
                 )}
-                <form>
-                    <input type="text" className="form-control" placeholder="Add a comment..." />
-                </form>
+                <AddComment post={post} user={user} />
             </div>
         </article>
     )

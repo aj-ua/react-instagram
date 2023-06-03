@@ -1,4 +1,4 @@
-import { GET_DATA, HANDLE_LIKES } from '../actions/types'
+import { GET_DATA, HANDLE_LIKES, ADD_COMMENT } from '../actions/types'
 
 const initialState = {
     posts: [],
@@ -24,6 +24,13 @@ export default function postsReducers(state = initialState, action) {
             return {
                 ...state,
                 likes: action.payload
+            }
+
+        case ADD_COMMENT:
+            console.log('reducer ADD_COMMENT');
+            return {
+                ...state,
+                comments: action.payload
             }
 
 

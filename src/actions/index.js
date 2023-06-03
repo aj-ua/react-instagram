@@ -70,3 +70,14 @@ export const togglePostModal = (post) => {
         payload: post
     }
 }
+
+export const addComment = (comment) => {
+    console.log('action ADD_COMMENT');
+    const data = JSON.parse(localStorage.getItem('instagram'))
+    data.comments.push(comment)
+    localStorage.setItem('instagram', JSON.stringify(data))
+    return {
+        type: types.ADD_COMMENT,
+        payload: data.comments
+    }
+}
