@@ -64,6 +64,11 @@ code {
       color: #000 !important;
     }
   }
+
+  &-comments {
+    max-height: 300px;
+    overflow-y: auto;
+  }
 }
 
 .post-actions {

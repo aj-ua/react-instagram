@@ -33,7 +33,6 @@ export default function postsReducers(state = initialState, action) {
                 comments: action.payload
             }
 
-
         default:
             return state
     }

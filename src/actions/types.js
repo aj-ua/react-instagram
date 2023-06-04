@@ -2,4 +2,5 @@ export const GET_DATA = 'GET_DATA'
 export const HANDLE_LIKES = 'HANDLE_LIKES'
 export const TOGGLE_POST_MODAL = 'TOGGLE_POST_MODAL'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const HANDLE_FOLLOW = 'HANDLE_FOLLOW'
 

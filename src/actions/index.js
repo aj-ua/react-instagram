@@ -81,3 +81,11 @@ export const addComment = (comment) => {
         payload: data.comments
     }
 }
+
+export const handleFollow = (user) => {
+    console.log('action HANDLE_FOLLOW');
+    return {
+        type: types.HANDLE_FOLLOW,
+        payload: user
+    }
+}

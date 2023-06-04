@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import AddComment from './AddComment'
+import UserCard from './UserCard'
 import { handleLikes, togglePostModal } from '../actions'
 
 const Post = ({ post, user, postComments, likes, isModal = false, togglePostModal }) => {
 
-
     const { id, title, url } = post
-    const { username, photo } = user
 
     const [addedLikes, setAddedLikes] = useState(false)
 
@@ -47,9 +46,8 @@ const Post = ({ post, user, postComments, likes, isModal = false, togglePostModa
 
     return (
         <article className="card">
-            <div className="card-header bg-white border-bottom-none d-flex align-items-center gap-2">
-                <img className='rounded-5' src={photo} alt={username} width='24' height='24   ' />
-                <strong>{username}</strong>
+            <div className="card-header bg-white border-bottom-0">
+                <UserCard user={user} action={null} />
             </div>
             <img className="card-img" src={url} alt={title} />
             <div className="card-body">
@@ -65,12 +63,13 @@ const Post = ({ post, user, postComments, likes, isModal = false, togglePostModa
                 {postComments.length > 0 && (
                     <>
                         {isModal ? (
-
-                            postComments.map((comment) => {
-                                return <div key={comment.id}>
-                                    <p><strong>{comment.name.length > 15 ? comment.name.substring(0, 15) + '...' : comment.name}</strong> {comment.body.length > 50 ? comment.body.substring(0, 50) + '...' : comment.body}</p>
-                                </div>
-                            })
+                            <div className="post-comments py-2 mb-3">
+                                {postComments.map((comment) => {
+                                    return <div key={comment.id}>
+                                        <p><strong>{comment.name.length > 15 ? comment.name.substring(0, 15) + '...' : comment.name}</strong> {comment.body.length > 50 ? comment.body.substring(0, 50) + '...' : comment.body}</p>
+                                    </div>
+                                })}
+                            </div>
 
                         ) :
                             <>

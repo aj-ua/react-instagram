@@ -13,7 +13,7 @@ const ModalPost = ({ users, comments, currentPost, isPostModalOpen, togglePostMo
                     <div className="modal-overlay" onClick={() => togglePostModal({})}></div>
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
-                            <div className="modal-header">
+                            <div className="modal-header border-bottom-0">
                                 <button type="button" className="btn-close" onClick={() => togglePostModal({})} />
                             </div>
                             <div className="modal-body text-left">
